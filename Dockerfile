@@ -1,9 +1,9 @@
-FROM python:3.9-apline3.13
+FROM python:3.9-alpine3.13
 LABEL maintainer="Kuriakose Kuruvilla Anathanam"
 
 ENV PYTHONUNBUFFERED 1
 
-COPY .requirements.txt /tmp/requirements.txt
+COPY ./requirements.txt /tmp/requirements.txt
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
