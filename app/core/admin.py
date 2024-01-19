@@ -9,11 +9,12 @@ from django.utils.translation import gettext_lazy as _
 from core import models
 
 class UserAdmin(BaseUserAdmin):
-    """Define the admin panel for the users."""
+    """Define the admin panel for users."""
     ordering = ["id"]
     list_display = ["email", "name"]
     fieldsets = (
         (None, {"fields": ("email", "password")}),
+        (_('Personal Info'), {'fields': ('name',)}),
         (
             _("Permissions"),
             {
@@ -38,7 +39,7 @@ class UserAdmin(BaseUserAdmin):
                 "is_active",
                 "is_staff",
                 "is_superuser",
-            )
+            ),
         }),
     )
 
