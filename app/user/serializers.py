@@ -1,10 +1,14 @@
 """
-Serializers for the user API view.
+Serializers for the user API View.
 """
-
-from django.contrib.auth import get_user_model, authenticate
-from rest_framework import serializers
+from django.contrib.auth import (
+    get_user_model,
+    authenticate,
+)
 from django.utils.translation import gettext as _
+
+from rest_framework import serializers
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""
@@ -34,12 +38,12 @@ class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user auth token."""
     email = serializers.EmailField()
     password = serializers.CharField(
-        style={"input_type": "password"},
+        style={'input_type': 'password'},
         trim_whitespace=False,
     )
 
     def validate(self, attrs):
-        """Validate authenticate the user."""
+        """Validate and authenticate the user."""
         email = attrs.get('email')
         password = attrs.get('password')
         user = authenticate(
@@ -48,10 +52,10 @@ class AuthTokenSerializer(serializers.Serializer):
             password=password,
         )
         if not user:
-            msg = ("Unable to authenticate with provided credentials.")
-            raise serializers.ValidationError(msg, code="authorization")
+            msg = _('Unable to authenticate with provided credentials.')
+            raise serializers.ValidationError(msg, code='authorization')
 
-        attrs["user"] = user
+        attrs['user'] = user
         return attrs
 
 

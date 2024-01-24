@@ -1,5 +1,5 @@
 """
-Test for recipe APIs.
+Tests for recipe APIs.
 """
 from decimal import Decimal
 
@@ -25,7 +25,7 @@ def create_recipe(user, **params):
         'time_minutes': 22,
         'price': Decimal('5.25'),
         'description': 'Sample description',
-        'links': 'https://example.com/recipe.pdf',
+        'link': 'http://example.com/recipe.pdf',
     }
     defaults.update(params)
 
@@ -53,7 +53,7 @@ class PrivateRecipeApiTests(TestCase):
         self.client = APIClient()
         self.user = get_user_model().objects.create_user(
             'user@example.com',
-            'testpass@123',
+            'testpass123',
         )
         self.client.force_authenticate(self.user)
 
@@ -70,7 +70,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.data, serializer.data)
 
     def test_recipe_list_limited_to_user(self):
-        """Test list of recipes is limited to the authenticated user."""
+        """Test list of recipes is limited to authenticated user."""
         other_user = get_user_model().objects.create_user(
             'other@example.com',
             'password123',
